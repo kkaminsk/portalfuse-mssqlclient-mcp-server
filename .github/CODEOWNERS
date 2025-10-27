@@ -1,0 +1,13 @@
+# Default owners
+* @repo-maintainers
+
+# Specs and proposals
+/openspec/ @spec-maintainers
+
+# Core layers
+/src/Core.Application/ @app-maintainers
+/src/Core.Infrastructure.SqlClient/ @db-maintainers
+/src/Core.Infrastructure.McpServer/ @mcp-maintainers
+
+# Tests
+/tst/ @qa-maintainers
