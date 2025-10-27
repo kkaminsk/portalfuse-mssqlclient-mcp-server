@@ -417,9 +417,25 @@ namespace Core.Infrastructure.McpServer
                 }
             }
             
+            // Register custom tools from configuration
+            Console.Error.WriteLine("Registering custom tools from configuration...");
+            var app = builder.Build();
+            var logger = app.Services.GetRequiredService<ILogger<Program>>();
+            var dbContext = isServerMode ? null : app.Services.GetService<IDatabaseContext>();
+            var serverDb = isServerMode ? app.Services.GetService<IServerDatabase>() : null;
+            
+            CustomToolFactory.RegisterCustomTools(
+                mcpServerBuilder,
+                builder.Configuration,
+                dbContext,
+                serverDb,
+                isServerMode,
+                dbConfig,
+                logger);
+            
             Console.Error.WriteLine("All tools registered. Building MCP server..."); 
 
-            await builder.Build().RunAsync();
+            await app.RunAsync();
         }
     }
 }
